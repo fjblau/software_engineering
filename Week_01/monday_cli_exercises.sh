@@ -1,150 +1,180 @@
 #!/bin/bash
 
-# Week 1 - Monday: Command Line Exercises
-# Complete these exercises to practice command line navigation and file operations
+# Week 1 - Monday: Command Line Exercises (EXECUTABLE VERSION)
+# This script guides you through command line practice with actual execution
 
 echo "=== Week 1 Monday: Command Line Practice ==="
-echo "Follow the instructions below and execute each command"
-echo ""
+echo "This script will guide you through hands-on CLI exercises"
+
+# Clean up any previous practice
+if [ -d "bootcamp" ]; then
+    echo "Cleaning up previous practice session..."
+    rm -rf bootcamp
+fi
 
 # Exercise 1: Navigation Basics
-echo "Exercise 1: Navigation Basics"
-echo "------------------------------"
-echo "1. Print your current working directory"
-echo "   Command: pwd"
-echo ""
-echo "2. List all files in the current directory"
-echo "   Command: ls"
-echo "   Command: ls -la  (shows hidden files and details)"
-echo ""
-echo "3. Navigate to your home directory"
-echo "   Command: cd ~"
-echo ""
+
+# Current working directory:
+pwd
+
+# Files in current directory:
+ls
+
+# Files with details:
+ls -la
+
+read -p "Press Enter to continue..."
 
 # Exercise 2: Creating Directory Structure
-echo "Exercise 2: Creating Directory Structure"
-echo "-----------------------------------------"
-echo "Create the following structure:"
-echo "bootcamp/"
-echo "  ├── week1/"
-echo "  │   ├── notes/"
-echo "  │   └── projects/"
-echo "  └── week2/"
-echo ""
-echo "Commands:"
-echo "  mkdir -p bootcamp/week1/notes"
-echo "  mkdir -p bootcamp/week1/projects"
-echo "  mkdir bootcamp/week2"
-echo ""
 
-# Exercise 3: Creating and Editing Files
-echo "Exercise 3: Creating Files"
-echo "--------------------------"
-echo "1. Navigate into bootcamp/week1/notes"
-echo "   Command: cd bootcamp/week1/notes"
-echo ""
-echo "2. Create a file called monday_notes.txt"
-echo "   Command: touch monday_notes.txt"
-echo ""
-echo "3. Create multiple files at once"
-echo "   Command: touch tuesday.txt wednesday.txt thursday.txt friday.txt"
-echo ""
+# Creating bootcamp directory structure...
+mkdir -p bootcamp/week1/notes
+mkdir -p bootcamp/week1/projects
+mkdir bootcamp/week2
 
-# Exercise 4: Copying and Moving Files
-echo "Exercise 4: Copying and Moving"
-echo "------------------------------"
-echo "1. Copy monday_notes.txt to the projects folder"
-echo "   Command: cp monday_notes.txt ../projects/"
-echo ""
-echo "2. Move tuesday.txt to the week2 folder"
-echo "   Command: mv tuesday.txt ../../week2/"
-echo ""
-echo "3. Copy entire notes folder to week2"
-echo "   Command: cp -r ../notes ../../week2/"
-echo ""
+echo "✓ Created: bootcamp/week1/notes"
+echo "✓ Created: bootcamp/week1/projects"
+echo "✓ Created: bootcamp/week2"
 
-# Exercise 5: File Content
-echo "Exercise 5: Working with File Content"
-echo "--------------------------------------"
-echo "1. Add content to a file using echo"
-echo "   Command: echo 'My first command line note' > monday_notes.txt"
-echo ""
-echo "2. Append more content"
-echo "   Command: echo 'Learning the terminal is powerful!' >> monday_notes.txt"
-echo ""
-echo "3. Display file contents"
-echo "   Command: cat monday_notes.txt"
-echo ""
+# Directory tree:
+ls -R bootcamp
 
-# Exercise 6: Finding Files
-echo "Exercise 6: Finding Things"
-echo "--------------------------"
-echo "1. Find all .txt files in bootcamp directory"
-echo "   Command: find bootcamp -name '*.txt'"
-echo ""
-echo "2. Search for content within files"
-echo "   Command: grep 'command line' bootcamp/week1/notes/monday_notes.txt"
-echo ""
+read -p "Press Enter to continue..."
 
-# Exercise 7: Removing Files (BE CAREFUL!)
-echo "Exercise 7: Removing Files and Directories"
-echo "------------------------------------------"
-echo "⚠️  CAUTION: These commands permanently delete files!"
-echo ""
-echo "1. Remove a single file"
-echo "   Command: rm wednesday.txt"
-echo ""
-echo "2. Remove a directory and its contents"
-echo "   Command: rm -rf bootcamp/week2/notes"
-echo ""
-echo "Note: Always double-check before using rm -rf!"
-echo ""
+# Exercise 3: Creating Files
 
-# Exercise 8: Permissions
-echo "Exercise 8: File Permissions"
-echo "----------------------------"
-echo "1. View file permissions"
-echo "   Command: ls -l monday_notes.txt"
-echo ""
-echo "2. Make a file executable"
-echo "   Command: chmod +x script.sh"
-echo ""
-echo "3. Change permissions using numbers (755 = rwxr-xr-x)"
-echo "   Command: chmod 755 script.sh"
-echo ""
+# Navigating to bootcamp/week1/notes...
+cd bootcamp/week1/notes
 
-# Exercise 9: Environment Variables
-echo "Exercise 9: Environment Variables"
-echo "---------------------------------"
-echo "1. View all environment variables"
-echo "   Command: env"
-echo ""
-echo "2. View specific variable (like PATH)"
-echo "   Command: echo $PATH"
-echo ""
-echo "3. Set a temporary variable"
-echo "   Command: export MY_NAME='Your Name'"
-echo "   Command: echo $MY_NAME"
-echo ""
+echo "Current directory: $(pwd)"
 
-# Exercise 10: Chaining Commands
-echo "Exercise 10: Command Chaining"
-echo "-----------------------------"
-echo "1. Run multiple commands in sequence"
-echo "   Command: cd bootcamp && ls -la && pwd"
-echo ""
-echo "2. Run command only if previous succeeds"
-echo "   Command: mkdir test && cd test"
-echo ""
-echo "3. Pipe output from one command to another"
-echo "   Command: ls -la | grep '.txt'"
-echo ""
+# Creating note files...
+touch monday_notes.txt
+touch tuesday.txt wednesday.txt thursday.txt friday.txt
+
+echo "✓ Created: monday_notes.txt"
+echo "✓ Created: tuesday.txt, wednesday.txt, thursday.txt, friday.txt"
+
+# Files in current directory:
+ls -la
+
+read -p "Press Enter to continue..."
+
+# Exercise 4: Working with File Content
+
+# Adding content to monday_notes.txt...
+echo 'My first command line note' > monday_notes.txt
+echo 'Learning the terminal is powerful!' >> monday_notes.txt
+echo 'I am becoming a professional developer!' >> monday_notes.txt
+
+echo "✓ Content added"
+
+# Content of monday_notes.txt:
+cat monday_notes.txt
+
+read -p "Press Enter to continue..."
+
+# Exercise 5: Copying Files
+
+# Copying monday_notes.txt to projects folder...
+cp monday_notes.txt ../projects/
+
+echo "✓ Copied: monday_notes.txt → ../projects/"
+
+# Files in projects folder:
+ls -la ../projects/
+
+read -p "Press Enter to continue..."
+
+# Exercise 6: Moving Files
+
+# Moving tuesday.txt to week2 folder...
+mv tuesday.txt ../../week2/
+
+echo "✓ Moved: tuesday.txt → ../../week2/"
+
+# Files remaining in notes:
+ls
+
+# Files in week2:
+ls ../../week2/
+
+read -p "Press Enter to continue..."
+
+# Exercise 7: Copying Directories
+
+# Copying entire notes folder to week2...
+cp -r ../notes ../../week2/
+
+echo "✓ Copied: entire notes directory → week2/"
+
+# Week2 contents:
+ls -R ../../week2/
+
+read -p "Press Enter to continue..."
+
+# Exercise 8: Finding Files
+
+cd ../../..
+
+# Finding all .txt files in bootcamp directory...
+find bootcamp -name "*.txt"
+
+# Searching for 'command line' in files...
+grep -r "command line" bootcamp/
+
+read -p "Press Enter to continue..."
+
+# Exercise 9: File Permissions
+
+# Current permissions on monday_notes.txt:
+ls -l bootcamp/week1/notes/monday_notes.txt
+
+# Making a test script executable...
+echo '#!/bin/bash' > test_script.sh
+echo 'echo "This script is executable!"' >> test_script.sh
+chmod +x test_script.sh
+
+echo "✓ Created executable script"
+
+# New permissions:
+ls -l test_script.sh
+
+# Running the script:
+./test_script.sh
+
+read -p "Press Enter to continue..."
+
+# Exercise 10: Command Chaining
+
+# Chaining commands: cd && ls && pwd
+cd bootcamp && ls -la && pwd
+
+# Using pipe to filter output:
+ls -la | grep "week"
+
+cd ..
+
+read -p "Press Enter to continue..."
+
+# Exercise 11: Environment Variables
+
+export CLI_STUDENT="$(whoami)"
+
+echo "Set environment variable: CLI_STUDENT=$CLI_STUDENT"
+
+# Your PATH variable contains:
+echo $PATH | tr ':' '\n' | head -5
+
+echo "... (showing first 5 paths)"
+
+read -p "Press Enter to continue..."
 
 # CHALLENGE: Scavenger Hunt
-echo ""
+
 echo "=== CHALLENGE: Command Line Scavenger Hunt ==="
-echo "Create this exact structure and file system:"
-echo ""
+echo "Now it's your turn! Create this exact structure:"
+
 echo "developer_journey/"
 echo "  ├── about.txt (contains 'I am learning to be a developer')"
 echo "  ├── skills/"
@@ -155,22 +185,67 @@ echo "      ├── week1_project/"
 echo "      │   └── README.md"
 echo "      └── portfolio/"
 echo "          └── index.html"
-echo ""
-echo "Submit your solution as a series of commands in a file called 'scavenger_solution.sh'"
-echo ""
 
-# Solution (Hidden - for instructor reference)
-: '
-mkdir -p developer_journey/skills
-mkdir -p developer_journey/projects/week1_project
-mkdir -p developer_journey/projects/portfolio
-cd developer_journey
-echo "I am learning to be a developer" > about.txt
-touch skills/javascript.txt skills/python.txt
-touch projects/week1_project/README.md
-touch projects/portfolio/index.html
-'
+read -p "Press Enter when you think you're done..."
 
-echo "=== End of Monday Command Line Exercises ==="
-echo "Practice these commands until they feel natural!"
-echo "Remember: Use 'man <command>' to read the manual for any command"
+# Verify challenge
+
+echo "Verifying your solution..."
+
+if [ -d "developer_journey" ]; then
+    echo "✓ developer_journey directory exists"
+    
+    if [ -f "developer_journey/about.txt" ]; then
+        echo "✓ about.txt exists"
+        if grep -q "I am learning to be a developer" developer_journey/about.txt; then
+            echo "  ✓ Contains correct text"
+        else
+            echo "  ✗ Missing or incorrect text"
+        fi
+    else
+        echo "✗ about.txt not found"
+    fi
+    
+    [ -d "developer_journey/skills" ] && echo "✓ skills/ directory exists" || echo "✗ skills/ directory missing"
+    [ -f "developer_journey/skills/javascript.txt" ] && echo "✓ javascript.txt exists" || echo "✗ javascript.txt missing"
+    [ -f "developer_journey/skills/python.txt" ] && echo "✓ python.txt exists" || echo "✗ python.txt missing"
+    [ -d "developer_journey/projects" ] && echo "✓ projects/ directory exists" || echo "✗ projects/ directory missing"
+    [ -d "developer_journey/projects/week1_project" ] && echo "✓ week1_project/ exists" || echo "✗ week1_project/ missing"
+    [ -f "developer_journey/projects/week1_project/README.md" ] && echo "✓ README.md exists" || echo "✗ README.md missing"
+    [ -d "developer_journey/projects/portfolio" ] && echo "✓ portfolio/ exists" || echo "✗ portfolio/ missing"
+    [ -f "developer_journey/projects/portfolio/index.html" ] && echo "✓ index.html exists" || echo "✗ index.html missing"
+
+else
+    echo "✗ developer_journey directory not found"
+    
+    echo "Try again! Here's the solution if you need help:"
+    
+    echo "mkdir -p developer_journey/skills"
+    echo "mkdir -p developer_journey/projects/week1_project"
+    echo "mkdir -p developer_journey/projects/portfolio"
+    echo "echo 'I am learning to be a developer' > developer_journey/about.txt"
+    echo "touch developer_journey/skills/javascript.txt"
+    echo "touch developer_journey/skills/python.txt"
+    echo "touch developer_journey/projects/week1_project/README.md"
+    echo "touch developer_journey/projects/portfolio/index.html"
+
+fi
+
+echo "=== Exercise Complete ==="
+
+echo "📊 What you practiced:"
+echo "  ✓ Navigation (pwd, cd, ls)"
+echo "  ✓ Creating directories (mkdir)"
+echo "  ✓ Creating files (touch, echo)"
+echo "  ✓ Copying files and directories (cp)"
+echo "  ✓ Moving files (mv)"
+echo "  ✓ Finding files (find, grep)"
+echo "  ✓ File permissions (chmod)"
+echo "  ✓ Command chaining (&&, |)"
+echo "  ✓ Environment variables (export, echo)"
+
+echo "🧹 Cleanup:"
+echo "To remove practice directories, run:"
+echo "  rm -rf bootcamp developer_journey test_script.sh"
+
+echo "💡 Remember: Use 'man <command>' to learn more about any command"

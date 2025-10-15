@@ -1,324 +1,441 @@
 #!/bin/bash
 
-# Week 1 - Tuesday: Git Fundamentals Reference
-# Essential Git commands for repos, commits, branching, and collaboration
+# Week 1 - Tuesday: Git Fundamentals (EXECUTABLE VERSION)
+# This script guides you through hands-on Git practice with actual execution
 
-echo "=== Week 1 Tuesday: Git Fundamentals ==="
-echo ""
-
-# ============================================
-# PART 1: INITIAL GIT SETUP
-# ============================================
-echo "PART 1: Initial Git Configuration"
-echo "=================================="
+echo "=== Week 1 Tuesday: Git Fundamentals Practice ==="
+echo "This script will guide you through Git exercises"
 echo ""
 
-# Configure your identity
-echo "# Configure your Git identity (do this once)"
-echo "git config --global user.name 'Your Name'"
-echo "git config --global user.email 'your.email@example.com'"
+# Check if Git is installed
+if ! command -v git &> /dev/null; then
+    echo "✗ Git is not installed. Please install Git first."
+    exit 1
+fi
+
+echo "✓ Git is installed: $(git --version)"
 echo ""
 
-# View your configuration
-echo "# View your Git configuration"
-echo "git config --list"
+# Check Git configuration
+echo "Checking your Git configuration..."
+GIT_NAME=$(git config --global user.name)
+GIT_EMAIL=$(git config --global user.email)
+
+if [ -z "$GIT_NAME" ] || [ -z "$GIT_EMAIL" ]; then
+    echo "⚠️  Git user information not configured"
+    echo ""
+    read -p "Enter your name: " NEW_NAME
+    read -p "Enter your email: " NEW_EMAIL
+    git config --global user.name "$NEW_NAME"
+    git config --global user.email "$NEW_EMAIL"
+    echo "✓ Git configured with:"
+    echo "  Name: $NEW_NAME"
+    echo "  Email: $NEW_EMAIL"
+else
+    echo "✓ Git already configured:"
+    echo "  Name: $GIT_NAME"
+    echo "  Email: $GIT_EMAIL"
+fi
+
+echo ""
+read -p "Press Enter to continue..."
 echo ""
 
-# Set default branch name to main
-echo "# Set default branch name to 'main'"
-echo "git config --global init.defaultBranch main"
-echo ""
+# Clean up any previous practice
+if [ -d "git-practice" ]; then
+    echo "Cleaning up previous practice session..."
+    rm -rf git-practice
+fi
+
+# Exercise 1: Initialize a Repository
+echo "=== Exercise 1: Initialize a Repository ==="
+echo "Creating a new directory: git-practice"
+mkdir git-practice
+cd git-practice
+echo "✓ Directory created"
 echo ""
 
-# ============================================
-# PART 2: LOCAL REPOSITORY BASICS
-# ============================================
-echo "PART 2: Working with Local Repositories"
-echo "========================================"
+echo "Initializing Git repository..."
+git init
+echo "✓ Git repository initialized"
 echo ""
 
-# Initialize a repository
-echo "# Create a new Git repository"
-echo "cd my-project"
-echo "git init"
+echo "Checking repository status..."
+git status
+echo ""
+read -p "Press Enter to continue..."
 echo ""
 
-# Check status
-echo "# Check status of your repository"
-echo "git status"
+# Exercise 2: First Commit
+echo "=== Exercise 2: Making Your First Commit ==="
+echo "Creating README.md..."
+cat > README.md << 'EOF'
+# My Git Practice Repository
+
+This repository is for learning Git fundamentals.
+
+## What I'm Learning
+- Git basics
+- Commits and branches
+- Collaboration workflows
+EOF
+echo "✓ README.md created"
 echo ""
 
-# Add files to staging
-echo "# Add files to staging area"
-echo "git add filename.txt          # Add specific file"
-echo "git add .                      # Add all files in current directory"
-echo "git add *.js                   # Add all JavaScript files"
+echo "Adding file to staging area..."
+git add README.md
+echo "✓ File staged"
 echo ""
 
-# Commit changes
-echo "# Commit staged changes"
-echo "git commit -m 'Add initial files'"
-echo ""
-echo "# Commit with longer message (opens editor)"
-echo "git commit"
+echo "Current status:"
+git status
 echo ""
 
-# View commit history
-echo "# View commit history"
-echo "git log"
-echo "git log --oneline              # Compact view"
-echo "git log --graph --oneline      # Visual branch graph"
-echo ""
+echo "Making first commit..."
+git commit -m "Initial commit: Add README"
+echo "✓ First commit created"
 echo ""
 
-# ============================================
-# PART 3: BRANCHING
-# ============================================
-echo "PART 3: Working with Branches"
-echo "=============================="
+echo "Viewing commit history..."
+git log --oneline
+echo ""
+read -p "Press Enter to continue..."
 echo ""
 
-# Create and manage branches
-echo "# Create a new branch"
-echo "git branch feature-login"
+# Exercise 3: Multiple Commits
+echo "=== Exercise 3: Multiple Commits ==="
+echo "Creating index.html..."
+cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Git Practice</title>
+</head>
+<body>
+    <h1>Learning Git</h1>
+    <p>This is my practice project.</p>
+</body>
+</html>
+EOF
+echo "✓ index.html created"
 echo ""
 
-echo "# List all branches"
-echo "git branch"
+echo "Creating style.css..."
+cat > style.css << 'EOF'
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+}
+EOF
+echo "✓ style.css created"
 echo ""
 
-echo "# Switch to a branch"
-echo "git checkout feature-login"
+echo "Adding all files..."
+git add .
+echo "✓ Files staged"
 echo ""
 
-echo "# Create and switch in one command"
-echo "git checkout -b feature-signup"
+echo "Committing changes..."
+git commit -m "Add HTML and CSS files"
+echo "✓ Commit created"
 echo ""
 
-echo "# Switch back to main"
-echo "git checkout main"
+echo "Commit history:"
+git log --oneline
+echo ""
+read -p "Press Enter to continue..."
 echo ""
 
-# Merging branches
-echo "# Merge a branch into current branch"
-echo "git merge feature-login"
+# Exercise 4: Branching
+echo "=== Exercise 4: Working with Branches ==="
+echo "Current branch:"
+git branch
 echo ""
 
-# Delete a branch
-echo "# Delete a branch (after merging)"
-echo "git branch -d feature-login"
-echo ""
-echo ""
-
-# ============================================
-# PART 4: REMOTE REPOSITORIES (GITHUB)
-# ============================================
-echo "PART 4: Working with Remote Repositories"
-echo "========================================="
+echo "Creating feature branch: add-javascript"
+git branch add-javascript
+echo "✓ Branch created"
 echo ""
 
-# SSH Key Setup (for authentication)
-echo "# Generate SSH key (if you don't have one)"
-echo "ssh-keygen -t ed25519 -C 'your.email@example.com'"
-echo ""
-echo "# Copy SSH key to clipboard (Mac)"
-echo "pbcopy < ~/.ssh/id_ed25519.pub"
-echo ""
-echo "# Copy SSH key to clipboard (Linux)"
-echo "xclip -selection clipboard < ~/.ssh/id_ed25519.pub"
-echo ""
-echo "# Then add the key to GitHub: Settings → SSH Keys → New SSH Key"
+echo "All branches:"
+git branch
 echo ""
 
-# Connecting to remote
-echo "# Connect local repo to GitHub (after creating repo on GitHub)"
-echo "git remote add origin git@github.com:username/repo-name.git"
+echo "Switching to add-javascript branch..."
+git checkout add-javascript
+echo "✓ Switched to add-javascript"
 echo ""
 
-echo "# Verify remote connection"
-echo "git remote -v"
+echo "Creating script.js in feature branch..."
+cat > script.js << 'EOF'
+console.log('Hello from Git practice!');
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded');
+});
+EOF
+echo "✓ script.js created"
 echo ""
 
-echo "# Push to remote repository"
-echo "git push -u origin main        # First push (sets upstream)"
-echo "git push                       # Subsequent pushes"
+echo "Committing on feature branch..."
+git add script.js
+git commit -m "Add JavaScript file"
+echo "✓ Committed on feature branch"
 echo ""
 
-# Cloning repositories
-echo "# Clone an existing repository"
-echo "git clone git@github.com:username/repo-name.git"
+echo "Commit history on feature branch:"
+git log --oneline
+echo ""
+read -p "Press Enter to continue..."
 echo ""
 
-# Pulling changes
-echo "# Pull changes from remote"
-echo "git pull                       # Pull from current branch's remote"
-echo "git pull origin main           # Pull from specific branch"
-echo ""
-echo ""
-
-# ============================================
-# PART 5: COLLABORATION WORKFLOW
-# ============================================
-echo "PART 5: Collaboration Workflow"
-echo "==============================="
+# Exercise 5: Merging
+echo "=== Exercise 5: Merging Branches ==="
+echo "Switching back to main branch..."
+git checkout main
+echo "✓ On main branch"
 echo ""
 
-echo "# Typical collaboration workflow:"
-echo ""
-echo "1. Clone the repository"
-echo "   git clone git@github.com:username/repo-name.git"
-echo "   cd repo-name"
-echo ""
-echo "2. Create a feature branch"
-echo "   git checkout -b feature/add-login"
-echo ""
-echo "3. Make changes and commit"
-echo "   git add ."
-echo "   git commit -m 'Add login form'"
-echo ""
-echo "4. Push your branch to remote"
-echo "   git push -u origin feature/add-login"
-echo ""
-echo "5. Create Pull Request on GitHub"
-echo "   (Done through GitHub web interface)"
-echo ""
-echo "6. After PR is merged, update your local main"
-echo "   git checkout main"
-echo "   git pull origin main"
-echo ""
-echo "7. Delete old feature branch"
-echo "   git branch -d feature/add-login"
-echo ""
+echo "Files in main branch (before merge):"
+ls -la
 echo ""
 
-# ============================================
-# PART 6: HANDLING MERGE CONFLICTS
-# ============================================
-echo "PART 6: Handling Merge Conflicts"
-echo "================================="
+echo "Merging add-javascript into main..."
+git merge add-javascript -m "Merge add-javascript feature"
+echo "✓ Merge complete"
 echo ""
 
-echo "# When a merge conflict occurs:"
-echo "1. Git will mark conflicted files"
-echo "2. Open the files and look for conflict markers:"
-echo "   <<<<<<< HEAD"
-echo "   Your changes"
-echo "   ======="
-echo "   Their changes"
-echo "   >>>>>>> branch-name"
-echo ""
-echo "3. Edit the file to resolve conflicts"
-echo "4. Remove the conflict markers"
-echo "5. Add the resolved files:"
-echo "   git add filename.txt"
-echo ""
-echo "6. Complete the merge:"
-echo "   git commit -m 'Resolve merge conflict'"
-echo ""
+echo "Files in main branch (after merge):"
+ls -la
 echo ""
 
-# ============================================
-# PART 7: UNDOING CHANGES
-# ============================================
-echo "PART 7: Undoing Changes"
-echo "======================="
+echo "Commit history after merge:"
+git log --oneline --graph
 echo ""
 
-echo "# Discard changes in working directory"
-echo "git checkout -- filename.txt"
+echo "Deleting feature branch (good practice after merge)..."
+git branch -d add-javascript
+echo "✓ Feature branch deleted"
 echo ""
 
-echo "# Unstage a file (keep changes)"
-echo "git reset HEAD filename.txt"
+echo "Remaining branches:"
+git branch
+echo ""
+read -p "Press Enter to continue..."
 echo ""
 
-echo "# Undo last commit (keep changes)"
-echo "git reset --soft HEAD~1"
+# Exercise 6: Viewing Changes
+echo "=== Exercise 6: Viewing Changes ==="
+echo "Making a change to README.md..."
+echo "" >> README.md
+echo "## Recent Updates" >> README.md
+echo "- Added HTML, CSS, and JavaScript files" >> README.md
+echo "- Learned about branching and merging" >> README.md
+echo "✓ File modified"
 echo ""
 
-echo "# Undo last commit (discard changes) ⚠️ DANGEROUS"
-echo "git reset --hard HEAD~1"
+echo "Viewing changes (before staging):"
+git diff README.md
 echo ""
 
-echo "# Revert a commit (creates new commit)"
-echo "git revert <commit-hash>"
-echo ""
-echo ""
-
-# ============================================
-# PART 8: USEFUL COMMANDS
-# ============================================
-echo "PART 8: Useful Commands"
-echo "======================="
+echo "Staging the changes..."
+git add README.md
+echo "✓ Changes staged"
 echo ""
 
-echo "# See what changed"
-echo "git diff                       # Changes not yet staged"
-echo "git diff --staged              # Changes staged for commit"
+echo "Viewing staged changes:"
+git diff --staged
 echo ""
 
-echo "# See who changed what"
-echo "git blame filename.txt"
+echo "Committing changes..."
+git commit -m "Update README with recent changes"
+echo "✓ Changes committed"
+echo ""
+read -p "Press Enter to continue..."
 echo ""
 
-echo "# Stash changes temporarily"
-echo "git stash                      # Save changes for later"
-echo "git stash pop                  # Bring back stashed changes"
-echo "git stash list                 # See all stashes"
+# Exercise 7: Undoing Changes
+echo "=== Exercise 7: Undoing Changes ==="
+echo "Making an unwanted change to style.css..."
+echo "/* This is a bad change */" >> style.css
+echo "✓ Bad change made"
 echo ""
 
-echo "# Clean up"
-echo "git clean -fd                  # Remove untracked files/directories"
-echo ""
-echo ""
-
-# ============================================
-# EXERCISE: PAIR COLLABORATION
-# ============================================
-echo "=== TUESDAY EXERCISE: Pair Collaboration ==="
-echo ""
-echo "Work with a partner to complete this exercise:"
-echo ""
-echo "Person A (Repository Owner):"
-echo "  1. Create a new repository on GitHub called 'pair-exercise'"
-echo "  2. Clone it locally"
-echo "  3. Create a README.md with your name"
-echo "  4. Commit and push"
-echo "  5. Add Person B as a collaborator on GitHub"
-echo ""
-echo "Person B (Collaborator):"
-echo "  1. Clone Person A's repository"
-echo "  2. Create a new branch: feature/add-about"
-echo "  3. Create about.txt with information about yourself"
-echo "  4. Commit and push the branch"
-echo "  5. Create a Pull Request on GitHub"
-echo ""
-echo "Person A:"
-echo "  1. Review the Pull Request"
-echo "  2. Add a comment"
-echo "  3. Merge the Pull Request"
-echo ""
-echo "Both:"
-echo "  1. Person B: Pull the updated main branch"
-echo "  2. Discuss what you learned"
-echo ""
+echo "Current status:"
+git status
 echo ""
 
-# ============================================
-# BEST PRACTICES
-# ============================================
-echo "=== GIT BEST PRACTICES ==="
-echo ""
-echo "✓ Commit often with clear messages"
-echo "✓ Pull before you push"
-echo "✓ Use branches for features"
-echo "✓ Keep commits focused (one logical change)"
-echo "✓ Write meaningful commit messages:"
-echo "  - Use present tense: 'Add feature' not 'Added feature'"
-echo "  - Be specific: 'Add login form validation' not 'Update code'"
-echo "✓ Review your changes before committing (git diff)"
-echo "✓ Never commit sensitive data (passwords, API keys)"
+echo "Discarding the change..."
+git checkout -- style.css
+echo "✓ Change discarded"
 echo ""
 
-echo "=== End of Tuesday Git Reference ==="
-echo "Practice these commands to build muscle memory!"
+echo "Status after discard:"
+git status
+echo ""
+read -p "Press Enter to continue..."
+echo ""
+
+# Exercise 8: Git Log Variations
+echo "=== Exercise 8: Viewing History ==="
+echo "Compact log:"
+git log --oneline
+echo ""
+
+echo "Detailed log (last 3 commits):"
+git log -3
+echo ""
+
+echo "Log with graph:"
+git log --oneline --graph --all
+echo ""
+read -p "Press Enter to continue..."
+echo ""
+
+# Exercise 9: .gitignore
+echo "=== Exercise 9: Using .gitignore ==="
+echo "Creating some files that shouldn't be tracked..."
+echo "temp data" > temp.log
+echo "secret key" > .env
+echo "✓ Created temp.log and .env"
+echo ""
+
+echo "Status before .gitignore:"
+git status
+echo ""
+
+echo "Creating .gitignore..."
+cat > .gitignore << 'EOF'
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# Node modules (for future use)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+EOF
+echo "✓ .gitignore created"
+echo ""
+
+echo "Status after .gitignore:"
+git status
+echo ""
+echo "Notice: temp.log and .env are now ignored!"
+echo ""
+
+echo "Committing .gitignore..."
+git add .gitignore
+git commit -m "Add .gitignore file"
+echo "✓ .gitignore committed"
+echo ""
+read -p "Press Enter to continue..."
+echo ""
+
+# Exercise 10: Creating a Practice Conflict
+echo "=== Exercise 10: Understanding Merge Conflicts ==="
+echo "Creating a scenario where a conflict might occur..."
+echo ""
+
+echo "Creating conflict-demo branch..."
+git checkout -b conflict-demo
+echo "✓ On conflict-demo branch"
+echo ""
+
+echo "Modifying README.md in conflict-demo branch..."
+sed -i.bak 's/# My Git Practice Repository/# Git Practice - Conflict Demo Branch/' README.md
+git add README.md
+git commit -m "Update title in conflict-demo branch"
+echo "✓ Committed change in conflict-demo"
+echo ""
+
+echo "Switching back to main..."
+git checkout main
+echo ""
+
+echo "Modifying README.md in main branch (same line)..."
+sed -i.bak 's/# My Git Practice Repository/# Git Practice - Main Branch/' README.md
+git add README.md
+git commit -m "Update title in main branch"
+echo "✓ Committed change in main"
+echo ""
+
+echo "Attempting to merge conflict-demo into main..."
+echo "This will create a conflict..."
+if git merge conflict-demo; then
+    echo "✓ Merged successfully (no conflict)"
+else
+    echo "⚠️  Merge conflict detected!"
+    echo ""
+    echo "Conflict in README.md:"
+    cat README.md | head -15
+    echo ""
+    echo "To resolve:"
+    echo "1. Open README.md in an editor"
+    echo "2. Look for <<<<<<< HEAD markers"
+    echo "3. Edit to keep the version you want"
+    echo "4. Remove conflict markers"
+    echo "5. Run: git add README.md"
+    echo "6. Run: git commit -m 'Resolve merge conflict'"
+    echo ""
+    echo "For this demo, we'll abort the merge..."
+    git merge --abort
+    echo "✓ Merge aborted"
+fi
+
+# Clean up conflict demo
+git branch -D conflict-demo 2>/dev/null
+rm -f README.md.bak
+echo ""
+read -p "Press Enter to continue..."
+echo ""
+
+# Final Summary
+echo ""
+echo "=== Git Practice Complete! ==="
+echo ""
+echo "📊 What you practiced:"
+echo "  ✓ Initializing repositories (git init)"
+echo "  ✓ Staging changes (git add)"
+echo "  ✓ Committing changes (git commit)"
+echo "  ✓ Creating branches (git branch)"
+echo "  ✓ Switching branches (git checkout)"
+echo "  ✓ Merging branches (git merge)"
+echo "  ✓ Viewing history (git log)"
+echo "  ✓ Viewing changes (git diff)"
+echo "  ✓ Undoing changes (git checkout --)"
+echo "  ✓ Using .gitignore"
+echo "  ✓ Understanding merge conflicts"
+echo ""
+
+echo "📁 Your practice repository:"
+git log --oneline --graph --all
+echo ""
+
+echo "📂 Files in repository:"
+ls -la
+echo ""
+
+echo "💡 Next Steps:"
+echo "  1. Create a GitHub account if you haven't"
+echo "  2. Set up SSH keys for GitHub"
+echo "  3. Create a remote repository on GitHub"
+echo "  4. Push this repository: git remote add origin <url>"
+echo "  5. Push: git push -u origin main"
+echo ""
+
+echo "🧹 To clean up practice repository:"
+echo "  cd .."
+echo "  rm -rf git-practice"
+echo ""
+
+echo "Keep practicing! Git gets easier with repetition."
