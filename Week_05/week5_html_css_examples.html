@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Maria Schmidt - Full-Stack Developer">
+    <meta name="keywords" content="developer, portfolio, web development">
+    <title>Maria Schmidt | Full-Stack Developer</title>
+    <style>
+        /* ============================================
+           CSS VARIABLES & THEME
+           ============================================ */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-color: #ffffff;
+            --bg-light: #f9fafb;
+            --border-color: #e5e7eb;
+            --spacing: 1rem;
+            --radius: 0.5rem;
+        }
+
+        /* ============================================
+           GLOBAL STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           HEADER & NAVIGATION
+           ============================================ */
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: var(--spacing) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 var(--spacing);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Mobile navigation */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        #hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem var(--spacing) 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        #hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        #hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary-color);
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2rem;
+            }
+
+            #hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* ============================================
+           SECTIONS - ABOUT, PROJECTS, CONTACT
+           ============================================ */
+        section {
+            padding: 3rem var(--spacing);
+            margin-bottom: 2rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        #about {
+            background: var(--bg-light);
+        }
+
+        #about p {
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            max-width: 800px;
+        }
+
+        /* ============================================
+           PROJECTS SECTION
+           ============================================ */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .project:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .project h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .project p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--bg-light);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .project-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .project-link:hover {
+            color: var(--primary-dark);
+        }
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+        #contact {
+            background: var(--bg-light);
+        }
+
+        .contact-content {
+            max-width: 600px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        input,
+        textarea {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 2rem var(--spacing);
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 768px) {
+            section {
+                padding: 2rem var(--spacing);
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY IMPROVEMENTS
+           ============================================ */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus visible for keyboard navigation */
+        *:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <nav aria-label="Main navigation">
+            <div class="logo">Maria Schmidt</div>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero" aria-label="Hero introduction">
+            <h1>Hi, I'm Maria Schmidt</h1>
+            <p>Full-Stack Developer | JavaScript & Python Specialist</p>
+            <a href="#projects" class="cta-button">View My Projects</a>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                I'm a passionate developer learning full-stack web development through Digital Campus Vorarlberg.
+                I specialize in JavaScript and Python, with a strong foundation in data structures, databases, and web technologies.
+            </p>
+            <p>
+                My journey includes mastering CLI tools, Git workflows, core programming concepts, data architecture, and now building responsive web applications.
+                I'm committed to writing clean, maintainable code and following professional development practices.
+            </p>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-container">
+                <!-- Project 1 -->
+                <article class="project">
+                    <h3>Data Management System</h3>
+                    <p>JavaScript and Python application for processing CSV and JSON data files with advanced filtering and sorting capabilities.</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Data Processing</span>
+                    </div>
+                    <a href="https://github.com/maria/data-system" class="project-link">View on GitHub →</a>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project">
+                    <h3>Database Schema Design</h3>
+                    <p>Designed and implemented normalized database schemas for e-commerce platforms with complex entity relationships and SQL queries.</p>
+                    <div class="project-tags">
+                        <span class="tag">SQL</span>
+                        <span class="tag">Database Design</span>
+                        <span class="tag">Data Architecture</span>
+                    </div>
+                    <a href="https://github.com/maria/db-schema" class="project-link">View on GitHub →</a>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project">
+                    <h3>CLI Tool Suite</h3>
+                    <p>Command-line tools built in Python for file processing, Git automation, and developer productivity improvements.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">CLI</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <a href="https://github.com/maria/cli-tools" class="project-link">View on GitHub →</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm always interested in hearing about interesting projects and opportunities. Feel free to reach out!</p>
+                <form method="POST" action="#" aria-label="Contact form">
+                    <div>
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <nav class="social-links" aria-label="Social media links">
+            <a href="https://github.com/maria">GitHub</a>
+            <a href="https://linkedin.com/in/maria-schmidt">LinkedIn</a>
+            <a href="https://twitter.com/maria">Twitter</a>
+        </nav>
+        <p>&copy; 2025 Maria Schmidt. All rights reserved.</p>
+    </footer>
+
+    <!-- SCRIPT SECTION WITH COMMENTS -->
+    <script>
+        // ============================================
+        // DOM MANIPULATION & INTERACTIVITY
+        // ============================================
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Form submission handling
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                console.log('Form submitted');
+                alert('Thank you for your message! I will get back to you soon.');
+                form.reset();
+            });
+        }
+
+        // Responsive navigation - add mobile menu functionality here
+        console.log('Portfolio website loaded successfully');
+    </script>
+</body>
+</html>

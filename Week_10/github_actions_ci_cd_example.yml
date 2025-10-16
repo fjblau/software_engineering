@@ -1,0 +1,530 @@
+# WEEK 10: CI/CD WITH GITHUB ACTIONS
+# 
+# INSTRUCTIONS:
+# 1. Create directory: .github/workflows/
+# 2. Create file: .github/workflows/test.yml (copy content below)
+# 3. Push to GitHub
+# 4. Actions automatically run on every push and PR
+#
+# GitHub Actions Documentation:
+# https://docs.github.com/en/actions
+
+# ============================================================================
+# WORKFLOW 1: JAVASCRIPT TESTS (Node.js)
+# ============================================================================
+
+name: JavaScript Tests
+
+# When to run this workflow
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    # Run on ubuntu
+    runs-on: ubuntu-latest
+    
+    # Test multiple Node versions
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    
+    steps:
+      # 1. Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # 2. Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm ci
+      
+      # 4. Lint code
+      - name: Run linter (ESLint)
+        run: npm run lint
+        continue-on-error: true
+      
+      # 5. Format check
+      - name: Check code formatting (Prettier)
+        run: npm run format:check
+        continue-on-error: true
+      
+      # 6. Run tests
+      - name: Run unit tests
+        run: npm test -- --coverage
+      
+      # 7. Upload coverage report
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+          verbose: true
+  
+  # Build job (optional)
+  build:
+    runs-on: ubuntu-latest
+    needs: test  # Only run if tests pass
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: dist/
+          retention-days: 5
+
+
+# ============================================================================
+# WORKFLOW 2: PYTHON TESTS (pytest)
+# ============================================================================
+
+name: Python Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+    
+    steps:
+      # 1. Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # 2. Setup Python
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+      
+      # 4. Lint with pylint
+      - name: Lint with pylint
+        run: pylint src/
+        continue-on-error: true
+      
+      # 5. Check code style with flake8
+      - name: Lint with flake8
+        run: flake8 src/
+        continue-on-error: true
+      
+      # 6. Format check with black
+      - name: Check code formatting with black
+        run: black --check src/
+        continue-on-error: true
+      
+      # 7. Run tests with pytest
+      - name: Run unit tests with pytest
+        run: pytest --cov=src --cov-report=xml --cov-report=html
+      
+      # 8. Upload coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-py-${{ matrix.python-version }}
+          fail_ci_if_error: false
+      
+      # 9. Archive coverage report
+      - name: Archive coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report-py${{ matrix.python-version }}
+          path: htmlcov/
+          retention-days: 7
+
+
+# ============================================================================
+# WORKFLOW 3: FULL STACK (JavaScript + Python)
+# ============================================================================
+
+name: Full Stack CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+# Set permissions for GitHub Token
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  # Test JavaScript/Frontend
+  test-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run frontend tests
+        run: npm test -- --coverage
+      
+      - name: Archive frontend coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-coverage
+          path: coverage/
+  
+  # Test Python/Backend
+  test-backend:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+      
+      - name: Run backend tests
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
+        run: pytest --cov=src --cov-report=xml
+      
+      - name: Archive backend coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-coverage
+          path: htmlcov/
+  
+  # Code quality checks
+  code-quality:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint black flake8 isort
+      
+      - name: Check with Black
+        run: black --check .
+        continue-on-error: true
+      
+      - name: Check imports with isort
+        run: isort --check-only .
+        continue-on-error: true
+      
+      - name: Lint with pylint
+        run: pylint src/
+        continue-on-error: true
+  
+  # Integration tests (only if unit tests pass)
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: [test-frontend, test-backend]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          npm install
+      
+      - name: Start backend server
+        run: |
+          # Start Flask server in background
+          nohup python app.py &
+          sleep 3
+      
+      - name: Run integration tests
+        run: |
+          pytest tests/integration/ -v
+
+
+# ============================================================================
+# WORKFLOW 4: DEPLOYMENT (Continuous Deployment)
+# ============================================================================
+
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  workflow_run:
+    workflows: ["JavaScript Tests", "Python Tests"]
+    types:
+      - completed
+    branches: [ main ]
+
+jobs:
+  deploy:
+    # Only deploy if tests passed
+    if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: production
+      url: https://yourapp.com
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # Example: Deploy to Heroku
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+      
+      # Example: Deploy to AWS
+      # - name: Deploy to AWS
+      #   uses: aws-actions/configure-aws-credentials@v2
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
+      
+      - name: Notify deployment
+        run: |
+          echo "✅ Deployment completed successfully!"
+
+
+# ============================================================================
+# WORKFLOW 5: SCHEDULED JOBS (Nightly Tests)
+# ============================================================================
+
+name: Nightly Tests
+
+# Run every night at 2 AM UTC
+on:
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+      
+      - name: Run extended test suite
+        run: pytest tests/ -v --cov
+      
+      - name: Send notification on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Nightly tests failed! See workflow run for details.'
+            })
+
+
+# ============================================================================
+# USEFUL GITHUB ACTIONS
+# ============================================================================
+
+# Setup actions:
+# actions/checkout@v4                   - Check out code
+# actions/setup-python@v4               - Setup Python
+# actions/setup-node@v3                 - Setup Node.js
+# actions/setup-java@v3                 - Setup Java
+# actions/setup-go@v4                   - Setup Go
+
+# Artifact actions:
+# actions/upload-artifact@v3            - Upload build artifacts
+# actions/download-artifact@v3          - Download artifacts
+# actions/upload-pages-artifact@v2      - Upload GitHub Pages
+
+# Caching:
+# actions/cache@v3                      - Cache dependencies
+
+# Third-party useful actions:
+# codecov/codecov-action                - Upload coverage to Codecov
+# github/codeql-action                  - Security scanning
+# dependabot/fetch-metadata              - Dependency management
+# pre-commit/action                     - Run pre-commit hooks
+
+
+# ============================================================================
+# SECRETS AND ENVIRONMENT VARIABLES
+# ============================================================================
+
+# Store in GitHub Settings > Secrets > Actions:
+# - HEROKU_API_KEY
+# - HEROKU_APP_NAME
+# - HEROKU_EMAIL
+# - AWS_ACCESS_KEY_ID
+# - AWS_SECRET_ACCESS_KEY
+# - CODECOV_TOKEN
+# - DATABASE_URL
+# - API_KEY
+
+# Access in workflow:
+# ${{ secrets.SECRET_NAME }}
+# ${{ secrets.HEROKU_API_KEY }}
+
+# Built-in environment variables:
+# github.actor              - Username who triggered workflow
+# github.ref                - Branch name
+# github.repository         - Repository name
+# github.workflow           - Workflow name
+# github.run_id             - Unique run ID
+# github.event_name         - Event that triggered workflow
+
+
+# ============================================================================
+# COMMON PATTERNS
+# ============================================================================
+
+# Continue on error (don't fail workflow):
+# continue-on-error: true
+
+# Only run if previous step succeeded:
+# if: success()
+
+# Only run if previous step failed:
+# if: failure()
+
+# Conditional steps:
+# if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+# Matrix strategy (test multiple versions):
+# strategy:
+#   matrix:
+#     python-version: ['3.8', '3.9', '3.10']
+#     os: [ubuntu-latest, windows-latest, macos-latest]
+
+# Service containers (databases, etc):
+# services:
+#   postgres:
+#     image: postgres:14
+#     env:
+#       POSTGRES_PASSWORD: secret
+#     options: --health-cmd pg_isready
+
+
+# ============================================================================
+# TESTING THE WORKFLOW
+# ============================================================================
+
+# Commands to validate workflow:
+# 1. Use VS Code extension: GitHub Actions
+# 2. Use online validator: https://github.com/rhysd/actionlint
+# 3. Use actionlint locally:
+#    brew install actionlint  (macOS)
+#    actionlint .github/workflows/*.yml
+
+# View workflow status:
+# 1. GitHub repository > Actions tab
+# 2. Click workflow name to see runs
+# 3. Click specific run to see details
+
+# Debug workflow:
+# Add debug step:
+# - name: Debug
+#   run: |
+#     echo "Branch: ${{ github.ref }}"
+#     echo "Event: ${{ github.event_name }}"
+#     ls -la
+#     env
