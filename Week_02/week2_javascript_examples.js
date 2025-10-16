@@ -444,9 +444,20 @@ if (temperature > 20) {
 let canVote = (userAge >= 18) ? "Yes" : "No";
 console.log(`Can vote: ${canVote}`);
 
+// Another ternary operator example
+let scoreForStatus = 75;
+let status = scoreForStatus >= 60 ? "Pass" : "Fail";
+console.log(`Score: ${scoreForStatus}, Status: ${status}`);
+
+// Truthy/Falsy example using ternary
+let score = 85;
+if (score) {  // Non-zero numbers are truthy
+    console.log("Score exists");
+}
+
 // ----------------------------------------------------------------------------
 // Truthy and Falsy Values
-// ----------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 
 console.log("\n=== Truthy and Falsy Values ===\n");
 
