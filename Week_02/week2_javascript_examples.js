@@ -883,6 +883,234 @@ function testMultiply() {
 testAdd();
 testMultiply();
 
+// ----------------------------------------------------------------------------
+// Testing with Edge Cases
+// ----------------------------------------------------------------------------
+
+console.log("\n=== Testing with Edge Cases ===\n");
+
+// Testing Edge Cases - Important for Robust Code
+// Edge cases are unusual or extreme inputs that might break your code
+
+function divideNumbers(a, b) {
+    // Divide two numbers with error handling
+    if (b === 0) {
+        return "Error: Cannot divide by zero";
+    }
+    return a / b;
+}
+
+function getFirstChar(text) {
+    // Get the first character of a string
+    if (!text || text.length === 0) {  // Check for empty string
+        return "Error: Empty string";
+    }
+    return text[0];
+}
+
+// Test normal cases
+console.log("=== Normal Cases ===");
+console.assert(divideNumbers(10, 2) === 5.0, "10 / 2 should equal 5");
+console.assert(getFirstChar("Hello") === "H", "First char of 'Hello' should be 'H'");
+console.log("Normal cases passed!");
+
+// Test edge cases
+console.log("\n=== Edge Cases ===");
+
+// Division by zero
+let resultEdge = divideNumbers(10, 0);
+console.assert(resultEdge === "Error: Cannot divide by zero", "Should handle division by zero");
+console.log(`divideNumbers(10, 0) = ${resultEdge}`);
+
+// Empty string
+resultEdge = getFirstChar("");
+console.assert(resultEdge === "Error: Empty string", "Should handle empty string");
+console.log(`getFirstChar('') = ${resultEdge}`);
+
+// Negative numbers
+console.assert(divideNumbers(-10, 2) === -5.0, "Should handle negative numbers");
+console.log(`divideNumbers(-10, 2) = ${divideNumbers(-10, 2)}`);
+
+// Very small numbers
+console.assert(divideNumbers(1, 1000) === 0.001, "Should handle very small numbers");
+console.log(`divideNumbers(1, 1000) = ${divideNumbers(1, 1000)}`);
+
+console.log("\nAll edge case tests passed!");
+
+// ----------------------------------------------------------------------------
+// Testing String Functions
+// ----------------------------------------------------------------------------
+
+console.log("\n=== Testing String Functions ===\n");
+
+function countVowels(text) {
+    // Count the number of vowels in a string
+    const vowels = "aeiouAEIOU";
+    let count = 0;
+    for (let char of text) {
+        if (vowels.includes(char)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+function reverseString(text) {
+    // Reverse a string
+    return text.split('').reverse().join('');
+}
+
+function isPalindrome(text) {
+    // Check if a string is a palindrome (reads same forwards and backwards)
+    // Remove spaces and convert to lowercase for comparison
+    const cleaned = text.replace(/ /g, '').toLowerCase();
+    return cleaned === cleaned.split('').reverse().join('');
+}
+
+// Test countVowels
+console.log("=== Testing countVowels ===");
+console.assert(countVowels("hello") === 2, "hello should have 2 vowels (e, o)");
+console.assert(countVowels("HELLO") === 2, "HELLO should have 2 vowels (E, O)");
+console.assert(countVowels("xyz") === 0, "xyz should have 0 vowels");
+console.assert(countVowels("aeiou") === 5, "aeiou should have 5 vowels");
+console.assert(countVowels("") === 0, "empty string should have 0 vowels");
+console.log("✓ All countVowels tests passed!");
+
+// Test reverseString
+console.log("\n=== Testing reverseString ===");
+console.assert(reverseString("hello") === "olleh", "hello reversed should be olleh");
+console.assert(reverseString("JavaScript") === "tpircSavaJ", "JavaScript reversed");
+console.assert(reverseString("a") === "a", "single char should stay same");
+console.assert(reverseString("") === "", "empty string should stay empty");
+console.log("✓ All reverseString tests passed!");
+
+// Test isPalindrome
+console.log("\n=== Testing isPalindrome ===");
+console.assert(isPalindrome("racecar") === true, "racecar is a palindrome");
+console.assert(isPalindrome("hello") === false, "hello is not a palindrome");
+console.assert(isPalindrome("A man a plan a canal Panama") === true, "classic palindrome");
+console.assert(isPalindrome("Was it a car or a cat I saw") === true, "palindrome sentence");
+console.log("✓ All isPalindrome tests passed!");
+
+console.log("\n🎉 All string function tests passed!");
+
+// ----------------------------------------------------------------------------
+// Testing a Real-World Function
+// ----------------------------------------------------------------------------
+
+console.log("\n=== Testing a Real-World Function ===\n");
+
+function calculateGrade(score) {
+    /**
+     * Convert a numeric score (0-100) to a letter grade
+     * A: 90-100, B: 80-89, C: 70-79, D: 60-69, F: 0-59
+     */
+    if (score < 0 || score > 100) {
+        return "Invalid score";
+    } else if (score >= 90) {
+        return "A";
+    } else if (score >= 80) {
+        return "B";
+    } else if (score >= 70) {
+        return "C";
+    } else if (score >= 60) {
+        return "D";
+    } else {
+        return "F";
+    }
+}
+
+function testCalculateGrade() {
+    // Comprehensive test suite for calculateGrade function
+    console.log("=== Testing Grade Calculator ===");
+    
+    // Test A grades
+    console.assert(calculateGrade(100) === "A", "Perfect score should be A");
+    console.assert(calculateGrade(95) === "A", "95 should be A");
+    console.assert(calculateGrade(90) === "A", "90 should be A (boundary)");
+    
+    // Test B grades
+    console.assert(calculateGrade(89) === "B", "89 should be B (boundary)");
+    console.assert(calculateGrade(85) === "B", "85 should be B");
+    console.assert(calculateGrade(80) === "B", "80 should be B (boundary)");
+    
+    // Test C grades
+    console.assert(calculateGrade(79) === "C", "79 should be C (boundary)");
+    console.assert(calculateGrade(75) === "C", "75 should be C");
+    console.assert(calculateGrade(70) === "C", "70 should be C (boundary)");
+    
+    // Test D grades
+    console.assert(calculateGrade(69) === "D", "69 should be D (boundary)");
+    console.assert(calculateGrade(65) === "D", "65 should be D");
+    console.assert(calculateGrade(60) === "D", "60 should be D (boundary)");
+    
+    // Test F grades
+    console.assert(calculateGrade(59) === "F", "59 should be F (boundary)");
+    console.assert(calculateGrade(50) === "F", "50 should be F");
+    console.assert(calculateGrade(0) === "F", "0 should be F");
+    
+    // Test invalid inputs
+    console.assert(calculateGrade(-1) === "Invalid score", "Negative should be invalid");
+    console.assert(calculateGrade(101) === "Invalid score", "Over 100 should be invalid");
+    
+    console.log("✓ All 20 grade calculator tests passed!");
+    return true;
+}
+
+// Run the comprehensive test
+testCalculateGrade();
+
+// Show some examples
+console.log("\n=== Example Grade Conversions ===");
+const testScores = [100, 85, 72, 68, 45];
+testScores.forEach(score => {
+    const grade = calculateGrade(score);
+    console.log(`Score: ${score} → Grade: ${grade}`);
+});
+
+// ----------------------------------------------------------------------------
+// Testing Best Practices
+// ----------------------------------------------------------------------------
+
+console.log("\n=== Testing Best Practices ===\n");
+
+console.log(`
+1. Test Normal Cases (Happy Path)
+   - Test with typical, expected inputs
+   - Example: divideNumbers(10, 2) should return 5.0
+
+2. Test Edge Cases
+   - Empty inputs (empty strings, empty arrays)
+   - Zero values
+   - Negative numbers
+   - Very large or very small numbers
+   - Boundary values (e.g., score = 90 for grade A)
+
+3. Test Error Conditions
+   - Invalid inputs
+   - Operations that should fail (division by zero)
+   - Out-of-range values
+
+4. Use Descriptive Error Messages
+   - Good: console.assert(score >= 0, "Score must be non-negative")
+   - Bad: console.assert(score >= 0)
+
+5. Test One Thing at a Time
+   - Each test should check one specific behavior
+   - Makes it easier to find bugs
+
+6. Keep Tests Simple and Readable
+   - Tests are documentation for your code
+   - Other developers should understand what you're testing
+
+Why Testing Matters:
+✓ Catches bugs early
+✓ Makes code changes safer
+✓ Documents how code should work
+✓ Gives confidence in your code
+✓ Saves debugging time later
+`);
+
 
 // ============================================================================
 // COMPLETE INTEGRATION EXAMPLE
