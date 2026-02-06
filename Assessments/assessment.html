@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineering Bootcamp - Pre-Course Skills Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1a5490;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #1a5490;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .intro {
+            background: #e8f4f8;
+            padding: 20px;
+            border-left: 4px solid #1a5490;
+            margin-bottom: 30px;
+        }
+
+        .intro p {
+            margin-bottom: 10px;
+        }
+
+        .intro strong {
+            color: #1a5490;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            background: #1a5490;
+            color: white;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .subsection-title {
+            color: #34495e;
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .options {
+            margin-left: 20px;
+        }
+
+        .option {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .text-input {
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+
+        td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .thank-you {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .thank-you h3 {
+            color: #155724;
+            margin-bottom: 15px;
+        }
+
+        .thank-you ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        .thank-you li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .thank-you li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .instructor-only {
+            background: #f8f9fa;
+            border: 2px solid #6c757d;
+            padding: 20px;
+            margin-top: 40px;
+            page-break-before: always;
+        }
+
+        .instructor-only h3 {
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            text-align: center;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #1a5490;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #143d6b;
+        }
+
+        .secondary-btn {
+            background: #6c757d;
+        }
+
+        .secondary-btn:hover {
+            background: #545b62;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .buttons {
+                display: none;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Software Engineering Bootcamp</h1>
+            <h2>Pre-Course Skills Assessment</h2>
+        </div>
+
+        <div class="intro">
+            <p><strong>Welcome!</strong> This assessment helps us understand your current experience level so we can better support your learning journey. There are no wrong answers—this course is designed to take you from wherever you are to professional developer level.</p>
+            
+            <p><strong>Important:</strong> This is NOT a pass/fail test. Complete beginners are absolutely welcome! We simply want to know where you're starting from.</p>
+            
+            <p><strong>Time:</strong> Approximately 20-30 minutes</p>
+        </div>
+
+        <!-- Part 1: About You -->
+        <div class="section">
+            <div class="section-title">Part 1: About You</div>
+            
+            <div class="subsection-title">1.1 Background Information</div>
+            
+            <div class="question">
+                <div class="question-text">1. What best describes your current situation?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1a" value="student">
+                        <label for="q1a">Student (high school, university, or vocational)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1b" value="career-changer">
+                        <label for="q1b">Career changer from a non-technical field</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1c" value="tech-adjacent">
+                        <label for="q1c">Working in a tech-adjacent role (design, project management, etc.)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1d" value="it-tech">
+                        <label for="q1d">Already working in IT/tech but want to learn development</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1e" value="other">
+                        <label for="q1e">Other:</label>
+                        <input type="text" style="width: 300px; margin-left: 10px;" placeholder="Please specify">
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. What motivates you to learn software engineering? (Select all that apply)</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="checkbox" id="q2a" value="career-change">
+                        <label for="q2a">Career change</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q2b" value="enhance-skills">
+                        <label for="q2b">Enhance current job skills</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q2c" value="business">
+                        <label for="q2c">Start my own business/project</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q2d" value="interest">
+                        <label for="q2d">Personal interest and curiosity</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q2e" value="other">
+                        <label for="q2e">Other:</label>
+                        <input type="text" style="width: 300px; margin-left: 10px;" placeholder="Please specify">
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. How many hours per week can you dedicate to learning outside of class?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3a" value="0-5">
+                        <label for="q3a">0-5 hours</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3b" value="5-10">
+                        <label for="q3b">5-10 hours</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3c" value="10-15">
+                        <label for="q3c">10-15 hours</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3d" value="15+">
+                        <label for="q3d">15+ hours</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 2: Computer Skills -->
+        <div class="section">
+            <div class="section-title">Part 2: Computer Skills</div>
+            
+            <div class="subsection-title">2.1 Basic Computer Literacy</div>
+            
+            <div class="question">
+                <div class="question-text">4. How comfortable are you with general computer use?</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Never Done</th>
+                            <th>Tried Once</th>
+                            <th>Can Do With Help</th>
+                            <th>Comfortable</th>
+                            <th>Very Confident</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Installing software</td>
+                            <td><input type="radio" name="q4a" value="1"></td>
+                            <td><input type="radio" name="q4a" value="2"></td>
+                            <td><input type="radio" name="q4a" value="3"></td>
+                            <td><input type="radio" name="q4a" value="4"></td>
+                            <td><input type="radio" name="q4a" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td>Managing files and folders</td>
+                            <td><input type="radio" name="q4b" value="1"></td>
+                            <td><input type="radio" name="q4b" value="2"></td>
+                            <td><input type="radio" name="q4b" value="3"></td>
+                            <td><input type="radio" name="q4b" value="4"></td>
+                            <td><input type="radio" name="q4b" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td>Using keyboard shortcuts</td>
+                            <td><input type="radio" name="q4c" value="1"></td>
+                            <td><input type="radio" name="q4c" value="2"></td>
+                            <td><input type="radio" name="q4c" value="3"></td>
+                            <td><input type="radio" name="q4c" value="4"></td>
+                            <td><input type="radio" name="q4c" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td>Troubleshooting basic issues</td>
+                            <td><input type="radio" name="q4d" value="1"></td>
+                            <td><input type="radio" name="q4d" value="2"></td>
+                            <td><input type="radio" name="q4d" value="3"></td>
+                            <td><input type="radio" name="q4d" value="4"></td>
+                            <td><input type="radio" name="q4d" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td>Using multiple browser tabs</td>
+                            <td><input type="radio" name="q4e" value="1"></td>
+                            <td><input type="radio" name="q4e" value="2"></td>
+                            <td><input type="radio" name="q4e" value="3"></td>
+                            <td><input type="radio" name="q4e" value="4"></td>
+                            <td><input type="radio" name="q4e" value="5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. Have you ever used a command line / terminal?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5a" value="no">
+                        <label for="q5a">No, I don't know what that is</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5b" value="heard">
+                        <label for="q5b">I've heard of it but never used it</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5c" value="tried">
+                        <label for="q5c">I've tried it a few times</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5d" value="occasional">
+                        <label for="q5d">I use it occasionally</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5e" value="regular">
+                        <label for="q5e">I use it regularly</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. What operating system do you primarily use?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6a" value="windows">
+                        <label for="q6a">Windows</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6b" value="macos">
+                        <label for="q6b">macOS</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6c" value="linux">
+                        <label for="q6c">Linux</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6d" value="multiple">
+                        <label for="q6d">I switch between multiple systems</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 3: Programming Experience -->
+        <div class="section">
+            <div class="section-title">Part 3: Programming Experience</div>
+            
+            <div class="subsection-title">3.1 Self-Assessment</div>
+            
+            <div class="question">
+                <div class="question-text">7. How would you describe your programming experience?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7a" value="beginner">
+                        <label for="q7a">Complete beginner—I've never written code</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7b" value="seen">
+                        <label for="q7b">I've seen code but never written any myself</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7c" value="tutorials">
+                        <label for="q7c">I've completed some tutorials or online courses</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7d" value="projects">
+                        <label for="q7d">I've built small personal projects</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7e" value="professional">
+                        <label for="q7e">I have professional or academic programming experience</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. Which programming languages have you encountered? (Select all that apply)</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="checkbox" id="q8a" value="none">
+                        <label for="q8a">None yet</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q8b" value="javascript">
+                        <label for="q8b">JavaScript</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q8c" value="python">
+                        <label for="q8c">Python</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q8d" value="html-css">
+                        <label for="q8d">HTML/CSS (markup, not programming)</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q8e" value="java">
+                        <label for="q8e">Java</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q8f" value="c-cpp">
+                        <label for="q8f">C/C++</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q8g" value="other">
+                        <label for="q8g">Other:</label>
+                        <input type="text" style="width: 300px; margin-left: 10px;" placeholder="Please specify">
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. Have you ever used any of these tools? (Select all that apply)</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="checkbox" id="q9a" value="none">
+                        <label for="q9a">None of these</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q9b" value="git">
+                        <label for="q9b">Git or GitHub</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q9c" value="vscode">
+                        <label for="q9c">VS Code or another code editor</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q9d" value="database">
+                        <label for="q9d">A database (any kind)</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q9e" value="api">
+                        <label for="q9e">An API</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q9f" value="docker">
+                        <label for="q9f">Docker</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 4: Logic & Problem Solving -->
+        <div class="section">
+            <div class="section-title">Part 4: Logic & Problem Solving</div>
+            
+            <div class="note">
+                Don't worry if these feel challenging—they're meant to assess your thinking approach, not prior knowledge.
+            </div>
+
+            <div class="subsection-title">4.1 Everyday Logic</div>
+            
+            <div class="question">
+                <div class="question-text">10. You're organizing a bookshelf. You want to find any book quickly. Which approach makes the most sense?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10a" value="random">
+                        <label for="q10a">a) Put books in random order—variety is good</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10b" value="color">
+                        <label for="q10b">b) Organize by color for aesthetics</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10c" value="alphabetical">
+                        <label for="q10c">c) Organize alphabetically by title or author</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10d" value="size">
+                        <label for="q10d">d) Stack them by size</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">11. A recipe says "repeat steps 3-5 until the sauce thickens." What programming concept does this most resemble?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11a" value="dunno">
+                        <label for="q11a">a) I don't know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11b" value="variable">
+                        <label for="q11b">b) A variable</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11c" value="loop">
+                        <label for="q11c">c) A loop</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11d" value="function">
+                        <label for="q11d">d) A function</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">12. You're giving directions to your home. Which description is clearer?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12a" value="vague">
+                        <label for="q12a">a) "Go straight, then turn, then you'll see it on the left somewhere"</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12b" value="specific">
+                        <label for="q12b">b) "Drive north on Main Street for 2 km, turn right on Oak Avenue, the house is the third on the left, number 42"</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection-title">4.2 Pattern Recognition</div>
+
+            <div class="question">
+                <div class="question-text">13. What comes next in this sequence: 2, 4, 8, 16, ___?</div>
+                <div class="text-input">
+                    <input type="text" id="q13" placeholder="Your answer">
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">14. Look at this simple pattern:</div>
+                <div class="code-block">*
+**
+***
+****</div>
+                <div class="question-text">If this pattern continues, how many stars would be on line 7?</div>
+                <div class="text-input">
+                    <input type="text" id="q14" placeholder="Your answer">
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 5: Technical Concepts -->
+        <div class="section">
+            <div class="section-title">Part 5: Technical Concepts</div>
+            
+            <div class="note">
+                Answer what you can. It's perfectly fine to select "I don't know" for any question.
+            </div>
+
+            <div class="subsection-title">5.1 Web & Internet Basics</div>
+            
+            <div class="question">
+                <div class="question-text">15. What does "URL" stand for?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15a" value="dunno">
+                        <label for="q15a">a) I don't know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15b" value="universal">
+                        <label for="q15b">b) Universal Resource Locator</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15c" value="uniform">
+                        <label for="q15c">c) Uniform Resource Locator</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15d" value="united">
+                        <label for="q15d">d) United Reference Link</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">16. When you visit a website, what is the role of a "server"?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q16" id="q16a" value="dunno">
+                        <label for="q16a">a) I don't know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" id="q16b" value="device">
+                        <label for="q16b">b) It's the device you're using to browse</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" id="q16c" value="computer">
+                        <label for="q16c">c) It's a computer that stores the website and sends it to your browser</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" id="q16d" value="connection">
+                        <label for="q16d">d) It's the internet connection</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">17. What is HTML primarily used for?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q17" id="q17a" value="dunno">
+                        <label for="q17a">a) I don't know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q17" id="q17b" value="styling">
+                        <label for="q17b">b) Styling websites with colors and fonts</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q17" id="q17c" value="structure">
+                        <label for="q17c">c) Structuring the content of web pages</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q17" id="q17d" value="interactive">
+                        <label for="q17d">d) Adding interactive features to websites</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection-title">5.2 Data Concepts</div>
+
+            <div class="question">
+                <div class="question-text">18. What is a database?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q18" id="q18a" value="dunno">
+                        <label for="q18a">a) I don't know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" id="q18b" value="spreadsheet">
+                        <label for="q18b">b) A type of spreadsheet software</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" id="q18c" value="collection">
+                        <label for="q18c">c) An organized collection of data that can be accessed and managed</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" id="q18d" value="backup">
+                        <label for="q18d">d) A backup of your computer files</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">19. Which of these is an example of structured data?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q19" id="q19a" value="dunno">
+                        <label for="q19a">a) I don't know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q19" id="q19b" value="paragraph">
+                        <label for="q19b">b) A paragraph of text from a novel</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q19" id="q19c" value="table">
+                        <label for="q19c">c) A table with columns for Name, Email, and Phone Number</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q19" id="q19d" value="photo">
+                        <label for="q19d">d) A photograph</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 6: Code Reading -->
+        <div class="section">
+            <div class="section-title">Part 6: Code Reading (Optional)</div>
+            
+            <div class="note">
+                These questions are completely optional. Skip them if you've never seen code before—that's totally fine!
+            </div>
+
+            <div class="subsection-title">6.1 JavaScript</div>
+            
+            <div class="question">
+                <div class="question-text">20. What do you think this code does?</div>
+                <div class="code-block">let age = 25;
+if (age >= 18) {
+    console.log("Adult");
+} else {
+    console.log("Minor");
+}</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20skip" value="skip">
+                        <label for="q20skip">I don't know / prefer to skip</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20a" value="adult">
+                        <label for="q20a">a) Prints "Adult"</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20b" value="minor">
+                        <label for="q20b">b) Prints "Minor"</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20c" value="both">
+                        <label for="q20c">c) Prints both "Adult" and "Minor"</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20d" value="error">
+                        <label for="q20d">d) Produces an error</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection-title">6.2 Python</div>
+
+            <div class="question">
+                <div class="question-text">21. What do you think this code produces?</div>
+                <div class="code-block">numbers = [1, 2, 3, 4, 5]
+total = 0
+for num in numbers:
+    total = total + num
+print(total)</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21skip" value="skip">
+                        <label for="q21skip">I don't know / prefer to skip</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21a" value="5">
+                        <label for="q21a">a) 5</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21b" value="15">
+                        <label for="q21b">b) 15</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21c" value="array">
+                        <label for="q21c">c) [1, 2, 3, 4, 5]</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21d" value="0">
+                        <label for="q21d">d) 0</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection-title">6.3 Spot the Difference</div>
+
+            <div class="question">
+                <div class="question-text">22. Below are two code snippets that do the same thing—one in JavaScript and one in Python. What do they both do?</div>
+                
+                <p><strong>JavaScript:</strong></p>
+                <div class="code-block">function greet(name) {
+    return "Hello, " + name;
+}</div>
+                
+                <p><strong>Python:</strong></p>
+                <div class="code-block">def greet(name):
+    return "Hello, " + name</div>
+                
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22skip" value="skip">
+                        <label for="q22skip">I don't know / prefer to skip</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22a" value="print">
+                        <label for="q22a">a) They print "Hello" to the screen</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22b" value="greeting">
+                        <label for="q22b">b) They create a reusable greeting that combines "Hello, " with a name</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22c" value="check">
+                        <label for="q22c">c) They check if a name is valid</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22d" value="store">
+                        <label for="q22d">d) They store a name in memory</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 7: Learning Style -->
+        <div class="section">
+            <div class="section-title">Part 7: Learning Style & Preferences</div>
+            
+            <div class="question">
+                <div class="question-text">23. How do you learn best? (Select your top 2)</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="checkbox" id="q23a" value="reading">
+                        <label for="q23a">Reading documentation and books</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q23b" value="videos">
+                        <label for="q23b">Watching video tutorials</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q23c" value="hands-on">
+                        <label for="q23c">Hands-on practice and building things</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q23d" value="others">
+                        <label for="q23d">Working with others / pair programming</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q23e" value="structured">
+                        <label for="q23e">Taking structured courses</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="q23f" value="experimenting">
+                        <label for="q23f">Experimenting and figuring things out myself</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">24. When you encounter a problem you can't solve, what's your first instinct?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24a" value="give-up">
+                        <label for="q24a">a) Give up and move on</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24b" value="ask">
+                        <label for="q24b">b) Ask someone for help immediately</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24c" value="search">
+                        <label for="q24c">c) Search online for solutions</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24d" value="try">
+                        <label for="q24d">d) Try different approaches until something works</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24e" value="step-away">
+                        <label for="q24e">e) Step away and come back later with fresh eyes</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">25. How comfortable are you with making mistakes as part of learning?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q25" id="q25a" value="not-comfortable">
+                        <label for="q25a">Not comfortable—mistakes are frustrating</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q25" id="q25b" value="somewhat">
+                        <label for="q25b">Somewhat comfortable—I can handle some errors</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q25" id="q25c" value="very">
+                        <label for="q25c">Very comfortable—mistakes are how I learn best</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 8: Open Questions -->
+        <div class="section">
+            <div class="section-title">Part 8: Open Questions</div>
+            
+            <div class="question">
+                <div class="question-text">26. Describe a time you solved a challenging problem (doesn't have to be technical). What was your approach?</div>
+                <div class="text-input">
+                    <textarea id="q26" placeholder="Your answer..."></textarea>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">27. Is there anything specific you hope to build or create after completing this course?</div>
+                <div class="text-input">
+                    <textarea id="q27" placeholder="Your answer..."></textarea>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">28. Do you have any concerns about starting this course? What support would help you succeed?</div>
+                <div class="text-input">
+                    <textarea id="q28" placeholder="Your answer..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 9: Self-Assessment Summary -->
+        <div class="section">
+            <div class="section-title">Part 9: Self-Assessment Summary</div>
+            
+            <div class="question">
+                <div class="question-text">29. Based on your honest self-evaluation, where do you think you fall?</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Complete Beginner</th>
+                            <th>Some Familiarity</th>
+                            <th>Intermediate</th>
+                            <th>Experienced</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Programming</td>
+                            <td><input type="radio" name="q29a" value="1"></td>
+                            <td><input type="radio" name="q29a" value="2"></td>
+                            <td><input type="radio" name="q29a" value="3"></td>
+                            <td><input type="radio" name="q29a" value="4"></td>
+                        </tr>
+                        <tr>
+                            <td>Web Development</td>
+                            <td><input type="radio" name="q29b" value="1"></td>
+                            <td><input type="radio" name="q29b" value="2"></td>
+                            <td><input type="radio" name="q29b" value="3"></td>
+                            <td><input type="radio" name="q29b" value="4"></td>
+                        </tr>
+                        <tr>
+                            <td>Databases</td>
+                            <td><input type="radio" name="q29c" value="1"></td>
+                            <td><input type="radio" name="q29c" value="2"></td>
+                            <td><input type="radio" name="q29c" value="3"></td>
+                            <td><input type="radio" name="q29c" value="4"></td>
+                        </tr>
+                        <tr>
+                            <td>Command Line</td>
+                            <td><input type="radio" name="q29d" value="1"></td>
+                            <td><input type="radio" name="q29d" value="2"></td>
+                            <td><input type="radio" name="q29d" value="3"></td>
+                            <td><input type="radio" name="q29d" value="4"></td>
+                        </tr>
+                        <tr>
+                            <td>Version Control (Git)</td>
+                            <td><input type="radio" name="q29e" value="1"></td>
+                            <td><input type="radio" name="q29e" value="2"></td>
+                            <td><input type="radio" name="q29e" value="3"></td>
+                            <td><input type="radio" name="q29e" value="4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Thank You -->
+        <div class="thank-you">
+            <h3>Thank You!</h3>
+            <p>Thank you for completing this assessment. Remember:</p>
+            <ul>
+                <li><strong>There are no wrong answers</strong>—this helps us support you better</li>
+                <li><strong>Complete beginners are welcome</strong>—our course is designed for you</li>
+                <li><strong>Honesty helps us help you</strong>—accurate self-assessment leads to better support</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>We're excited to have you join us on this learning journey!</strong></p>
+        </div>
+
+        <!-- Instructor Section -->
+        <div class="instructor-only">
+            <h3>For Instructors Only</h3>
+            
+            <p><strong>Scoring Guide:</strong></p>
+            <table style="margin: 15px 0;">
+                <thead>
+                    <tr>
+                        <th>Score Range</th>
+                        <th>Level</th>
+                        <th>Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0-20</td>
+                        <td>Complete Beginner</td>
+                        <td>Standard track, may benefit from pre-work materials</td>
+                    </tr>
+                    <tr>
+                        <td>21-40</td>
+                        <td>Some Exposure</td>
+                        <td>Standard track, solid starting point</td>
+                    </tr>
+                    <tr>
+                        <td>41-60</td>
+                        <td>Intermediate</td>
+                        <td>Standard track, can assist peers, may move faster</td>
+                    </tr>
+                    <tr>
+                        <td>61+</td>
+                        <td>Advanced</td>
+                        <td>Consider advanced projects, peer mentoring role</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Key Indicators:</strong></p>
+            <ul style="list-style: disc; margin-left: 20px; margin-top: 10px;">
+                <li>Parts 1-3: Background and self-assessment (qualitative)</li>
+                <li>Part 4: Logic and problem-solving ability (Q13: 32, Q14: 7)</li>
+                <li>Part 5: Technical foundation (Q15: c, Q16: c, Q17: c, Q18: c, Q19: c)</li>
+                <li>Part 6: Code reading ability (Q20: a, Q21: b, Q22: b)</li>
+                <li>Parts 7-9: Learning style and support needs (qualitative)</li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Red Flags to Address:</strong></p>
+            <ul style="list-style: disc; margin-left: 20px; margin-top: 10px;">
+                <li>Q24 answer (a): May need encouragement with resilience</li>
+                <li>Q25 "Not comfortable": Emphasize growth mindset early</li>
+                <li>Low computer literacy (Q4-6): May need extra setup support</li>
+            </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="buttons">
+            <button onclick="window.print()">Print / Save as PDF</button>
+            <button class="secondary-btn" onclick="if(confirm('Are you sure you want to clear all answers?')) document.querySelectorAll('input, textarea').forEach(el => {if(el.type==='checkbox' || el.type==='radio') el.checked=false; else el.value=''})">Clear Form</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Auto-save to localStorage
+        const form = document.querySelector('.container');
+        
+        // Load saved data on page load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('assessmentData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
+                    if (element) {
+                        if (element.type === 'checkbox' || element.type === 'radio') {
+                            if (Array.isArray(data[key])) {
+                                data[key].forEach(val => {
+                                    const el = document.querySelector(`[name="${key}"][value="${val}"]`);
+                                    if (el) el.checked = true;
+                                });
+                            } else {
+                                element.checked = true;
+                            }
+                        } else {
+                            element.value = data[key];
+                        }
+                    }
+                });
+            }
+        });
+
+        // Save on change
+        form.addEventListener('change', () => {
+            const data = {};
+            document.querySelectorAll('input, textarea').forEach(el => {
+                if (el.id || el.name) {
+                    const key = el.id || el.name;
+                    if (el.type === 'checkbox') {
+                        if (el.checked) {
+                            data[key] = data[key] || [];
+                            if (Array.isArray(data[key])) {
+                                data[key].push(el.value);
+                            }
+                        }
+                    } else if (el.type === 'radio') {
+                        if (el.checked) {
+                            data[key] = el.value;
+                        }
+                    } else if (el.value) {
+                        data[key] = el.value;
+                    }
+                }
+            });
+            localStorage.setItem('assessmentData', JSON.stringify(data));
+        });
+
+        // Print optimization
+        window.addEventListener('beforeprint', () => {
+            document.body.style.background = 'white';
+        });
+    </script>
+</body>
+</html>
